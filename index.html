@@ -1,137 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
-    <!-- <link rel="stylesheet" href="assets/style.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="assets/css/custom.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
-    <div class="dashboard-container w-full  flex justify-center ">
-        <div class="side-menubar-container h-screen lg:w-[20%] bg-[#5344f5]  z-10">
+    <div class="dashboard-container w-full relative flex">
+        <div class="side-menubar-container absolute left-0 h-screen lg:block lg:w-[20%] w-full bg-[#5344f5] z-10 ">
             <div class="menuholder h-full flex flex-col">
-                <div class="logo p-4 mb-4 flex justify-center items-center">
-                    <img class="h-14" src="https://white.logodownload.org/wp-content/uploads/2020/11/google-white-logo-1.png" alt="">
+                <div class="logo py-4 mb-4 flex px-5 lg:px-0 justify-between lg:justify-center items-center">
+                    <img class="h-14"
+                        src="https://white.logodownload.org/wp-content/uploads/2020/11/google-white-logo-1.png" alt="">
+
+                    <i id="menuCloseToggleBtn" class="text-white lg:hidden text-lg cursor-pointer fa-solid fa-x"></i>
                 </div>
 
                 <div class="menuList overflow-y-auto">
                     <ul class="text-white">
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-solid fa-gauge"></i> Dashboard</span></li>
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-regular fa-newspaper"></i>Posts</span> <i class="fa-solid fa-caret-down"></i></li>
-                        <ul class="innerMenuList">
-                            <li class="pl-6 hover:bg-[#261d8b] py-2 cursor-pointer"><span><i class="px-3 fa-solid fa-icons"></i> Show All Posts</span></li>
-                            <li class="pl-6 hover:bg-[#261d8b] py-2 cursor-pointer"><span><i class="px-3 fa-solid fa-file-plus-minus"></i>Add New Post</span></li>
+                        <li onclick='showComponent("dashboard", "Dashboard", loadPie);'
+                            class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-solid fa-gauge"></i> Dashboard</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-regular fa-newspaper"></i>Posts</span> <i
+                                class="fa-solid fa-caret-down ease-in-out duration-300"></i>
+                        </li>
+                        <ul class="innerMenuList h-0 invisible">
+                            <li onclick='showComponent("allPosts", "All Posts");'
+                                class="pl-6 hover:bg-[#261d8b] py-2 cursor-pointer"><span><i
+                                        class="px-3 fa-solid fa-icons"></i> Show All Posts</span></li>
+                            <li class="pl-6 hover:bg-[#261d8b] py-2 cursor-pointer"><span><i
+                                        class="px-3 fa-solid fa-file-plus-minus"></i>Add New Post</span></li>
                         </ul>
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-duotone fa-person-dress"></i>Models</span></li>
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-duotone fa-camera-movie"></i>Channels</span></li>
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-solid fa-certificate"></i>Category</span></li>
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-solid fa-tag"></i>Tags</span></li>
-                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer"><span><i class="px-3 fa-solid fa-bookmark"></i>BookMark Links</span></li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-duotone fa-person-dress"></i>Models</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-duotone fa-camera-movie"></i>Channels</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-solid fa-certificate"></i>Category</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-solid fa-tag"></i>Tags</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-solid fa-bookmark"></i>BookMark Links</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-solid fa-users"></i>Manage Users</span>
+                        </li>
+                        <li class="flex justify-between items-center hover:bg-[#261d8b] px-3 py-2 cursor-pointer">
+                            <span><i class="px-3 fa-solid fa-globe-pointer"></i>Manage Website</span>
+                        </li>
                     </ul>
 
                 </div>
             </div>
         </div>
-        <div class="dashboard-component-container h-full lg:w-[80%] bg-[#efeef3]">
+        <div class="dashboard-component-container absolute right-0 h-full w-full lg:w-[80%] ">
             <div class="top flex justify-between items-center px-4 border-b-4 h-[10vh]">
                 <div class="left flex justify-center items-center gap-3">
-                    <i class="text-lg cursor-pointer fa-solid fa-bars"></i>
-                    <h2 class="text-lg">Dashboard</h2>
+                    <i id="menuToggleBtn" class="text-lg cursor-pointer fa-solid fa-bars"></i>
+                    <h2 id="pageTitle" class="text-lg">Dashboard</h2>
                 </div>
                 <div class="right flex justify-center items-center gap-3">
                     <div class="options">
                         <i class="fa-solid fa-moon"></i>
                     </div>
-                    <div class="user mx-3 rounded-full bg-white px-3 py-2 flex gap-2 justify-center items-center">
+                    <div class="user bg-[#bebebe5e] ml-3 rounded-full pl-3 py-2 flex gap-2 justify-center items-center">
                         <i class="fa-solid fa-user"></i>
                         <span class="userName">Bishal Biswas</span>
-                        <i class="h-5 w-5 rounded-full hover:bg-gray-400 flex justify-center items-center ml-4 cursor-pointer fa-solid fa-ellipsis-vertical"></i>
+                        <i onclick="triggerMenu(this)"
+                            class="optionTrigger h-6 w-6 rounded-full hover:bg-gray-400 flex justify-center items-center mx-4 cursor-pointer fa-solid fa-ellipsis-vertical"></i>
+                        <span
+                            class="options hide min-w-[100px] absolute border border-[#8080802e] py-2 top-12 right-8 z-10 flex flex-col bg-white rounded-lg shadow-sm">
+                            <ul>
+                                <li class="p-2 cursor-pointer px-3 hover:bg-[#bebebe5e]">Log Out</li>
+                                <li class="p-2 cursor-pointer px-3 hover:bg-[#bebebe5e]">Change Password</li>
+                            </ul>
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <div class="dashboard-components-holder flex  items-center flex-col p-5 h-[90vh] overflow-y-auto">
-                <div class="row w-full flex flex-wrap justify-between gap-4 mb-4">
-                    <div class="data-box cursor-pointer  bg-white flex justify-between gap-2 p-3 w-[32%] rounded-md shadow-lg hover:shadow-xl">
-                        <div class="data flex flex-col gap-2">
-                            <span class="headingTitle">All Posts</span>
-                            <p class="text-3xl font-medium">163</p>
-                            <p class="text-xs text-green-400">Since All Time</p>
+            <div id="app-root"
+                class="app-root-components-holder bg-[#efeef3] flex items-center flex-col p-5 h-[90vh] overflow-y-auto">
+
+            </div>
+
+            <div class="component-collection hidden">
+                <div id="dashboard" class="flex items-center flex-col w-full">
+                    <div class="row w-full flex flex-wrap flex-col lg:flex-row justify-between gap-4 mb-4">
+                        <div
+                            class="data-box cursor-pointer  bg-[#da4335] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
                         </div>
-                        <i class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
-                    </div>
-                    <div class="data-box cursor-pointer  bg-white flex justify-between gap-2 p-3 w-[32%] rounded-md shadow-lg hover:shadow-xl">
-                        <div class="data flex flex-col gap-2">
-                            <span class="headingTitle">All Posts</span>
-                            <p class="text-3xl font-medium">163</p>
-                            <p class="text-xs text-green-400">Since All Time</p>
+                        <div
+                            class="data-box cursor-pointer  bg-[#44bbd9] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
                         </div>
-                        <i class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
-                    </div>
-                    <div class="data-box cursor-pointer  bg-white flex justify-between gap-2 p-3 w-[32%] rounded-md shadow-lg hover:shadow-xl">
-                        <div class="data flex flex-col gap-2">
-                            <span class="headingTitle">All Posts</span>
-                            <p class="text-3xl font-medium">163</p>
-                            <p class="text-xs text-green-400">Since All Time</p>
+                        <div
+                            class="data-box cursor-pointer   bg-[#f8a84f] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
                         </div>
-                        <i class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
+                        <div
+                            class="data-box cursor-pointer  bg-[#6fae61] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
+                        </div>
+
                     </div>
-                  
+                    <div class="row w-full flex flex-wrap flex-col lg:flex-row justify-between gap-4 mb-4">
+                        <div
+                            class="data-box cursor-pointer  bg-[#da4335] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
+                        </div>
+                        <div
+                            class="data-box cursor-pointer  bg-[#44bbd9] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
+                        </div>
+                        <div
+                            class="data-box cursor-pointer   bg-[#f8a84f] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
+                        </div>
+                        <div
+                            class="data-box cursor-pointer  bg-[#6fae61] text-white flex justify-between gap-2 p-3 w-full lg:w-[23%] rounded-md shadow-lg hover:shadow-xl">
+                            <div class="data flex flex-col gap-2">
+                                <span class="headingTitle">All Posts</span>
+                                <p class="text-3xl font-medium">163</p>
+                                <p class="text-xs text-green-400">Since All Time</p>
+                            </div>
+                            <i
+                                class="h-10 w-10 flex items-center justify-center rounded-full border bg-[#bfbec289] text-[#5344f5] px-3 fa-regular fa-newspaper"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row w-full flex flex-wrap flex-col lg:flex-row justify-between gap-4 mb-4">
+                        <div
+                            class="listCounter-box bg-white flex flex-col justify-between gap-2 p-3 w-full lg:w-[32%] rounded-md shadow-lg hover:shadow-xl">
+                            <span class="headingTitle flex w-full justify-between">
+                                <p>Traffic per Post</p>
+                                <span class="bg-[#5344f5] cursor-pointer p-1 rounded-sm text-white text-xs">Show All
+                                    Posts</span>
+                            </span>
+                            <ul>
+                                <li
+                                    class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
+                                    <span class="title">Post Title Here</span>
+                                    <span class="value">2323</span>
+                                </li>
+                                <li
+                                    class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
+                                    <span class="title">Post Title Here</span>
+                                    <span class="value">2323</span>
+                                </li>
+                                <li
+                                    class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
+                                    <span class="title">Post Title Here</span>
+                                    <span class="value">2323</span>
+                                </li>
+                                <li
+                                    class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
+                                    <span class="title">Post Title Here</span>
+                                    <span class="value">2323</span>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div
+                            class="pie-data bg-white flex flex-col items-center gap-2 p-3 w-full lg:w-[32%] rounded-md shadow-lg hover:shadow-xl">
+                            <span class="headingTitle flex w-full justify-between">
+                                <p>Total Posts Target</p>
+                                <span class="bg-[#5344f5] cursor-pointer p-1 rounded-sm text-white text-xs">Other
+                                    Data</span>
+                            </span>
+                            <div class="flex justify-center h-[175px]">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div
+                            class="task-data bg-white flex flex-col justify-between gap-2 p-3 w-full lg:w-[32%] rounded-md shadow-lg hover:shadow-xl">
+                            <span class="headingTitle flex w-full justify-between">
+                                <p>To Do List</p>
+                                <span class="bg-[#5344f5] cursor-pointer p-1 rounded-sm text-white text-xs">Show
+                                    All</span>
+                            </span>
+
+                            <div class="task-data">
+                                <ul class="flex flex-col gap-1">
+                                    <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs">
+                                        <p>Update the Post - #5343</p> <span
+                                            class="rounded p-1 text-white bg-red-600">Pending</span>
+                                    </li>
+                                    <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs">
+                                        <p>Update the Post - #5343</p> <span
+                                            class="rounded p-1 text-white bg-red-600">Pending</span>
+                                    </li>
+                                    <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs">
+                                        <p>Update the Post - #5343</p> <span
+                                            class="rounded p-1 text-white bg-green-500">Completed</span>
+                                    </li>
+                                    <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs">
+                                        <p>Update the Post - #5343</p> <span
+                                            class="rounded p-1 text-white bg-green-500">Completed</span>
+                                    </li>
+                                    <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs">
+                                        <p>Update the Post - #5343</p> <span
+                                            class="rounded p-1 text-white bg-green-500">Completed</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row w-full flex flex-wrap justify-between gap-4 mb-4">
-                    <div class="listCounter-box bg-white flex flex-col justify-between gap-2 p-3 w-[32%] rounded-md shadow-lg hover:shadow-xl">
-                        <span class="headingTitle flex w-full justify-between">
-                            <p>Traffic per Post</p>
-                            <span class="bg-[#5344f5] cursor-pointer p-1 rounded-sm text-white text-xs">Show All Posts</span>
-                        </span>
-                        <ul>
-                            <li class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
-                                <span class="title">Post Title Here</span>
-                                <span class="value">2323</span>
-                            </li>
-                            <li class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
-                                <span class="title">Post Title Here</span>
-                                <span class="value">2323</span>
-                            </li>
-                            <li class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
-                                <span class="title">Post Title Here</span>
-                                <span class="value">2323</span>
-                            </li>
-                            <li class="p-3 rounded-sm    flex justify-between items-center hover:bg-[#5344f5] hover:shadow-md hover:text-white">
-                                <span class="title">Post Title Here</span>
-                                <span class="value">2323</span>
-                            </li>
-                            
-                        </ul>
-                    </div>
+                <div id="allPosts" class="flex items-center flex-col w-full">
+                    <div class="row w-full flex flex-wrap flex-col lg:flex-row justify-between gap-4 mb-4">
+                        <div
+                            class="data-table-container p-4 w-full overflow-x-auto overflow-y-hidden bg-white rounded-md shadow-lg">
 
-                    <div class="pie-data bg-white flex flex-col justify-between items-center gap-2 p-3 w-[32%] rounded-md shadow-lg hover:shadow-xl">
-                        <span class="headingTitle flex w-full justify-between">
-                            <p>Total Posts Target</p>
-                            <span class="bg-[#5344f5] cursor-pointer p-1 rounded-sm text-white text-xs">Other Data</span>
-                        </span>
-                        <div class="flex justify-center h-[150px] w-[150px]">
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </div>
+                            <div class="data-header hidden h-10 items-center lg:flex w-full">
+                                <span class="px-2 w-[40px] lg:w-[5%]">S.No</span>
+                                <span class="px-2 w-[250px] lg:w-[60%]">Post Title</span>
+                                <span class="px-2 w-[125px] lg:w-[20%]">Category</span>
+                                <span class="px-2 w-[40px] lg:w-[15%]">Status</span>
+                            </div>
 
-                    <div class="task-data bg-white flex flex-col justify-between gap-2 p-3 w-[32%] rounded-md shadow-lg hover:shadow-xl">
-                        <span class="headingTitle flex w-full justify-between">
-                            <p>To Do List</p>
-                            <span class="bg-[#5344f5] cursor-pointer p-1 rounded-sm text-white text-xs">Show All</span>
-                        </span>
+                            <div class="data-content-holder py-1 flex flex-col max-h-[65vh] overflow-y-auto text-sm">
 
-                        <div class="task-data">
-                            <ul class="flex flex-col gap-1">
-                                <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs"><p>Update the Post - #5343</p> <span class="rounded p-1 text-white bg-red-600">Pending</span></li>
-                                <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs"><p>Update the Post - #5343</p> <span class="rounded p-1 text-white bg-red-600">Pending</span></li>
-                                <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs"><p>Update the Post - #5343</p> <span class="rounded p-1 text-white bg-green-500">Completed</span></li>
-                                <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs"><p>Update the Post - #5343</p> <span class="rounded p-1 text-white bg-green-500">Completed</span></li>
-                                <li class="rounded hover:bg-gray-400 p-1 flex justify-between text-xs"><p>Update the Post - #5343</p> <span class="rounded p-1 text-white bg-green-500">Completed</span></li>
-                            </ul>
+                                <div
+                                    class="data-content-row h-12 flex w-fit lg:w-full items-center border hover:shadow-lg mb-1">
+                                    <span class="px-2 w-[40px] lg:w-[5%] h-full flex items-center ">1</span>
+                                    <span class="px-2  h-full w-[250px] lg:w-[60%] flex items-center gap-2">
+                                        <p class="w-[80%] text-ellipsis overflow-hidden box">Coke Studio Bharat |
+                                            Khalasi | Aditya Gadhvi x
+                                            Achint</p> <img class="p-[2px] w-[60px] object-cover rounded h-full "
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLrC1wJORhjBI7hHmCBJWBwinpnjfVwxlyvlwIhIWKTpdn1X62aOD6U6VUUoCn1k7YhZM&usqp=CAU"
+                                            alt="">
+                                    </span>
+                                    <span class="px-2 h-full flex items-center w-[125px] lg:w-[20%]">Music</span>
+                                    <span class="px-2 h-full flex items-center lg:w-[15%]">Draft
+                                        <span class="pl-20 ">
+                                            <i onclick="triggerMenu(this)"
+                                                class="optionTrigger flex items-center justify-center w-5 h-5 cursor-pointer rounded-full fa-solid fa-ellipsis-vertical hover:bg-gray-400"></i>
+                                            <span
+                                                class="options hide min-w-[100px] absolute border border-[#8080802e] py-2 right-14 z-10 flex flex-col bg-white rounded-lg shadow-sm">
+                                                <ul>
+                                                    <li class="p-2 cursor-pointer px-3 hover:bg-[#bebebe5e]">Edit</li>
+                                                    <li class="p-2 cursor-pointer px-3 hover:bg-[#bebebe5e]">Publish
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,44 +316,15 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const data = {
-            labels: [
-                'Not Publish',
-                'Published',
-            ],
-            datasets: [{
-                // label: ['Yet to Publish', 'Published'],
-                data: [30, 70],
-                backgroundColor: [
-                    '#bebebe',
-                    '#5344f5',
-                ],
-                hoverOffset: 4
-            }]
-        };
-
-        var chartOptions = {
-            maintainAspectRatio: false, // Disable aspect ratio maintenance
-            responsive: true, // Set to true to make the chart responsive to window resizing
-            height: 150, // Set the height in pixels
-            width: 150,  // Set the width in pixels
-            // Other chart options
-        };
-
-        const chart = new Chart(document.getElementById('myChart') , {
-                type: 'doughnut',
-                data: data,
-                options: {
-                    onClick: (e) => {
-                        const canvasPosition = getRelativePosition(e, chart);
-
-                        // Substitute the appropriate scale IDs
-                        const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-                        const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-                    }
-                }
-            });
-    </script>
+    <script src="assets/js/components.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 </body>
+
 </html>
+
+<!--
+    Dark Mode
+    Modal
+    Text Inputs
+    Buttons Filter/Search 
+-->
